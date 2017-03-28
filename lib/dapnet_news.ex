@@ -12,15 +12,22 @@ defmodule DAPNET.News do
     [hackney: [basic_auth: {user, pass}]]
   end
 
+  def post(item) do
+    HTTPoison.post!(endpoint(), Poison.encode!(item), @headers, auth())
+  end
+
+  def post(rubric, text) do
+    post %{
+      text: text,
+      rubricName: rubric
+    }
+  end
+
   def post(rubric, number, text) do
-    item = %{
+    post %{
       text: text,
       rubricName: rubric,
       number: number
     }
-
-    IO.inspect item
-
-    HTTPoison.post!(endpoint(), Poison.encode!(item), @headers, auth())
   end
 end

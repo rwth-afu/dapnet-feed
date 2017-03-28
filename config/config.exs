@@ -37,5 +37,13 @@ config :quantum, :dapnet_feed,
       schedule: "15 */2 * * *",
       task: "Sources.ISS.run",
       args: ["50.77", "6.08"]
+    ],
+    metar: [
+      schedule: "19 * * * *",
+      task: "Sources.METAR.run",
+      args: [
+        "metar-dl-nw",
+        ["EDDK", "EDDL", "EDDG", "ETNG", "EDLW", "EDLP"]
+      ]
     ]
   ]
