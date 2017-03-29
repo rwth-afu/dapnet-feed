@@ -10,7 +10,11 @@ defmodule Sources.METAR do
     HTTPoison.get!(@api <> "?" <> @params <> "&stationString=" <> stations)
     |> Map.get(:body)
     |> xpath(~x"//METAR/raw_text/text()"sl)
-    |> IO.inspect
+    |> Enum.sort_by(fn(item) ->
+      Enum.find_index(icao_list, fn(icao) ->
+        icao == String.slice(item, 0, 4)
+      end)
+    end)
     |> Enum.with_index
     |> Enum.each(fn({title, index}) ->
       DAPNET.News.post rubric, (index + 1), title
