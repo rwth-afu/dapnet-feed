@@ -30,20 +30,39 @@ config :logger, level: :info
 
 import_config "local.exs"
 
-config :quantum, :dapnet_feed,
-  cron: [
-    "30 * * * *": {"Sources.RwthAfu", :run},
-    iss: [
+config :dapnet_feed, Feed.Scheduler,
+  jobs: [
+    {"30 * * * *", {Sources.RwthAfu, :run, []}},
+    {:iss, [
       schedule: "15 */2 * * *",
-      task: "Sources.ISS.run",
-      args: ["50.77", "6.08"]
-    ],
-    metar: [
-      schedule: "19 * * * *",
-      task: "Sources.METAR.run",
-      args: [
+      task: {Sources.ISS, :run, ["50.77", "6.08"]}
+    ]},
+    {:metar_dl_nw, [
+      schedule: "21 * * * *",
+      task: {Sources.METAR, :run, [
         "metar-dl-nw",
         ["EDDK", "EDDL", "EDDG", "ETNG", "EDLW", "EDLP"]
-      ]
-    ]
+      ]}
+    ]},
+    {:metar_dl_rp, [
+      schedule: "22 * * * *",
+      task: {Sources.METAR, :run, [
+        "metar-dl-rp",
+        ["EDFH", "EDRZ"]
+      ]},
+    ]},
+    {:metar_dl_ns, [
+      schedule: "23 * * * *",
+      task: {Sources.METAR, :run, [
+        "metar-dl-ns",
+        ["EDDV", "EDVE", "ETMN"]
+      ]}
+    ]},
+    {:metar_dl_bw, [
+      schedule: "24 * * * *",
+      task: {Sources.METAR, :run, [
+        "metar-dl-bw",
+        ["EDDS", "EDSB", "EDNY", "EDTL"]
+      ]}
+    ]}
   ]

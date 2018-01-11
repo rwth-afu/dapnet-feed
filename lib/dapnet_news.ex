@@ -13,7 +13,11 @@ defmodule DAPNET.News do
   end
 
   def post(item) do
-    HTTPoison.post!(endpoint(), Poison.encode!(item), @headers, auth())
+    if Application.get_env(:dapnet_feed, :testing) do
+      IO.inspect item
+    else
+      HTTPoison.post!(endpoint(), Poison.encode!(item), @headers, auth())
+    end
   end
 
   def post(rubric, text) do

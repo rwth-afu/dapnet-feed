@@ -16,6 +16,7 @@ defmodule DapnetFeed.Mixfile do
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
     [
+      mod: {Feed, []},
       applications: [:timex, :quantum],
       extra_applications: [:logger]
     ]
@@ -32,11 +33,13 @@ defmodule DapnetFeed.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:httpoison, "~> 0.11.1"},
+      {:httpoison, "~> 0.13.0"},
       {:poison, "~> 3.1.0"},
-      {:quantum, "~> 1.9.1"},
-      {:timex, "~> 3.1.13"},
+      {:quantum, "~> 2.2.0"},
+      {:timex, "~> 3.1.24"},
       {:sweet_xml, "~> 0.6.5"},
+      {:geo, "~> 1.0"},
+      {:topo, "~> 0.1.2"}
     ]
   end
 end
