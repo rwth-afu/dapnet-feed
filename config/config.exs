@@ -37,29 +37,36 @@ config :dapnet_feed, Feed.Scheduler,
       schedule: "15 */2 * * *",
       task: {Sources.ISS, :run, ["50.77", "6.08"]}
     ]},
+    {:metar_dl, [
+        schedule: "21,51 * * * *",
+        task: {Sources.METAR, :run, [
+          "metar-dl",
+          ["EDDT", "EDDF", "EDDH", "EDDM", "EDDL", "EDDS", "EDDV", "EDDP", "EDDG", "EDDN"]
+      ]}
+    ]},
     {:metar_dl_nw, [
-      schedule: "21,51 * * * *",
+      schedule: "22,52 * * * *",
       task: {Sources.METAR, :run, [
         "metar-dl-nw",
         ["EDDK", "EDDL", "EDDG", "ETNG", "EDLW", "EDLP"]
       ]}
     ]},
     {:metar_dl_rp, [
-      schedule: "22,52 * * * *",
+      schedule: "23,53 * * * *",
       task: {Sources.METAR, :run, [
         "metar-dl-rp",
         ["EDFH", "EDRZ"]
       ]},
     ]},
     {:metar_dl_ns, [
-      schedule: "23,53 * * * *",
+      schedule: "24,54 * * * *",
       task: {Sources.METAR, :run, [
         "metar-dl-ni",
         ["EDDV", "EDVE", "ETMN"]
       ]}
     ]},
     {:metar_dl_bw, [
-      schedule: "24,54 * * * *",
+      schedule: "25,55 * * * *",
       task: {Sources.METAR, :run, [
         "metar-dl-bw",
         ["EDDS", "EDSB", "EDNY", "EDTL"]
