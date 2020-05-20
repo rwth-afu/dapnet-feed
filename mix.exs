@@ -33,13 +33,11 @@ defmodule DapnetFeed.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:httpoison, "~> 0.13.0"},
-      {:poison, "~> 3.1.0"},
-      {:quantum, "~> 2.2.0"},
-      {:timex, "~> 3.1.24"},
-      {:sweet_xml, "~> 0.6.5"},
-      {:geo, "~> 1.0"},
-      {:topo, "~> 0.1.2"}
+      {:httpoison, "~> 1.6.2"},
+      {:poison, "~> 4.0.1"},
+      {:quantum, "~> 2.4.0"},
+      {:timex, "~> 3.6.1"},
+      {:sweet_xml, "~> 0.6.5"}
     ]
   end
 end

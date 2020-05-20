@@ -29,7 +29,7 @@ defmodule Sources.ISS do
     end)
     |> Stream.with_index
     |> Stream.each(fn({title, index}) ->
-      DAPNET.News.post "sat", (index + 1), title
+      DAPNET.News.post "dl-sat", (index + 1), title
     end)
     |> Stream.run
   end

@@ -2,7 +2,7 @@ defmodule DAPNET.News do
   @headers [{"Content-Type", "application/json"}]
 
   def endpoint do
-    "http://" <> Application.get_env(:dapnet_feed, :server) <> "/news"
+    "http://" <> Application.get_env(:dapnet_feed, :server) <> "/rubrics"
   end
 
   def auth do
@@ -12,26 +12,14 @@ defmodule DAPNET.News do
     [hackney: [basic_auth: {user, pass}]]
   end
 
-  def post(item) do
-    if Application.get_env(:dapnet_feed, :testing) do
-      IO.inspect item
-    else
-      HTTPoison.post!(endpoint(), Poison.encode!(item), @headers, auth())
-    end
-  end
-
-  def post(rubric, text) do
-    post %{
-      text: text,
-      rubricName: rubric
-    }
-  end
-
   def post(rubric, number, text) do
-    post %{
-      text: text,
-      rubricName: rubric,
-      number: number
+    path = endpoint() <> "/#{rubric}/news/#{number}"
+
+    item = %{
+      data: text
     }
+
+    result = HTTPoison.put!(path, Poison.encode!(item), @headers, auth())
+    IO.inspect(result)
   end
 end
